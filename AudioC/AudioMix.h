@@ -15,7 +15,6 @@ AudioStreamBasicDescription TSignedIntLinearPCMStreamDescription()
     bzero(&destFormat, sizeof(AudioStreamBasicDescription));
     destFormat.mSampleRate = 44100.0;
     destFormat.mFormatID = kAudioFormatLinearPCM;
-//    destFormat.mFormatFlags = kLinearPCMFormatFlagIsSignedInteger;
     destFormat.mFormatFlags =  kLinearPCMFormatFlagIsSignedInteger;
     destFormat.mFramesPerPacket = 1;
     destFormat.mBytesPerPacket = 4;

@@ -190,8 +190,7 @@ OSStatus MyRenderCallback(void *userData,
     status = AUGraphInitialize(audioGraph);
     NSAssert(noErr == status, @"AUGraphInitialize error.");
     CAShow(audioGraph);
-    OSStatus result = AUGraphStart(audioGraph);
-    if (result) { printf("AUGraphStart result %ld %08lX %4.4s\n", (long)result, (long)result, (char*)&result); return; }
+    
 }
 
 
@@ -205,10 +204,17 @@ OSStatus MyRenderCallback(void *userData,
 }
 
 
-- (IBAction)changeVolum:(id)sender {
-     _player = [[THLRecordIO alloc]initWithDelegate:nil];
-    NSURL* url = [[NSBundle mainBundle] URLForAuxiliaryExecutable:@"mo.mp3"];
-    [_player startPlayerMusic:url.absoluteString];
+- (IBAction)changeVolum:(UIButton*)sender {
+    OSStatus result;
+    if (sender.tag == 0) {
+        [sender setTitle:@"stop" forState:UIControlStateNormal];
+         result = AUGraphStart(audioGraph);
+    }else{
+        [sender setTitle:@"start" forState:UIControlStateNormal];
+         result = AUGraphStop(audioGraph);
+    }
+    sender.tag = !sender.tag;
+    if (result) { printf("AUGraphStart result %ld %08lX %4.4s\n", (long)result, (long)result, (char*)&result);  }
 }
 
 
